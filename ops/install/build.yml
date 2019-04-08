@@ -1,0 +1,11 @@
+version: "2"
+services:
+  broker:
+    build:
+      context: ../../message-broker
+    image: example/broker
+
+  producer:
+    build:
+      context: ../../nodejs-producer
+    image: example/producer

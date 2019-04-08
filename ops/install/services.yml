@@ -1,0 +1,31 @@
+version: "2"
+services:
+  broker:
+    image: example/broker
+    restart: always
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 5672:5672
+      - 15672:15672
+    command: "rabbitmq-server"
+
+  producer:
+    image: example/producer
+    restart: always
+    ports:
+      - 8047:8047
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ../../nodejs-producer/src:/app/src
+      - ../../nodejs-producer/package.json:/app/package.json
+      - ../../nodejs-producer/config.js:/app/config.js
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: ["npm", "run", "-s", "start-dev"]
+    external_links:
+      - "broker"
+
+networks:
+  default:
+    driver: bridge
