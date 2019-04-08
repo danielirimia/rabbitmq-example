@@ -18,9 +18,9 @@ services:
     environment:
       - NODE_ENV=development
     volumes:
-      - ../../nodejs-producer/src:/app/src
-      - ../../nodejs-producer/package.json:/app/package.json
-      - ../../nodejs-producer/config.js:/app/config.js
+      - ../../nodejs_producer/src:/app/src
+      - ../../nodejs_producer/package.json:/app/package.json
+      - ../../nodejs_producer/config.js:/app/config.js
       - /var/run/docker.sock:/var/run/docker.sock
     command: ["npm", "run", "-s", "start-dev"]
     external_links:

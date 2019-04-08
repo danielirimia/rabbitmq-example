@@ -2,10 +2,10 @@ version: "2"
 services:
   broker:
     build:
-      context: ../../message-broker
+      context: ../../message_broker
     image: example/broker
 
   producer:
     build:
-      context: ../../nodejs-producer
+      context: ../../nodejs_producer
     image: example/producer
