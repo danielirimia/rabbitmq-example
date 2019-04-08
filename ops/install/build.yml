@@ -9,3 +9,8 @@ services:
     build:
       context: ../../nodejs_producer
     image: example/producer
+
+  consumer:
+    build:
+      context: ../../elixir_consumer
+    image: example/consumer

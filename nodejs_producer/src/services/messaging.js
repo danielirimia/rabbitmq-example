@@ -17,7 +17,6 @@ module.exports.sendHelloWorld = () => {
     });
     setTimeout(function() {
       conn.close();
-      process.exit(0);
     }, 500);
   });
 };

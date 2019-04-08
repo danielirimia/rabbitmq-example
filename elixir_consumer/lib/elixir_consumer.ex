@@ -1,9 +1,19 @@
 defmodule ElixirConsumer do
-  @moduledoc """
-  ElixirConsumer keeps the contexts that define your domain
-  and business logic.
-
-  Contexts are also responsible for managing your data, regardless
-  if it comes from the database, an external API or others.
-  """
+  def wait_for_messages do
+    receive do
+      {:basic_deliver, payload, _meta} ->
+        IO.puts " [x] Received #{payload}"
+        wait_for_messages()
+    end
+  end
 end
+
+{:ok, connection} = AMQP.Connection.open("amqp://broker:5672")
+{:ok, channel} = AMQP.Channel.open(connection)
+
+AMQP.Queue.declare(channel, "hello")
+AMQP.Basic.consume(channel, "hello", nil, no_ack: true)
+
+IO.puts " [*] Waiting for messages. To exit press CTRL+C, CTRL+C"
+
+ElixirConsumer.wait_for_messages()
